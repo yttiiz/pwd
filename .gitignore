@@ -6,6 +6,9 @@ dist/
 wheels/
 *.egg-info
 
+# Variables environment
+.env
+
 # Virtual environments
 .venv
 
