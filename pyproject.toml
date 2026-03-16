@@ -1,0 +1,10 @@
+[project]
+name = "pwd"
+version = "0.1.0"
+description = "This is an API designed to GET documents & texts from my VPS"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.135.1",
+    "uvicorn[standard]>=0.41.0",
+]
