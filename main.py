@@ -1,6 +1,5 @@
-def main():
-    print("Hello from pwd!")
+from fastapi import FastAPI
+from src.routes import documents
 
-
-if __name__ == "__main__":
-    main()
+app = FastAPI()
+app.include_router(documents.router)
