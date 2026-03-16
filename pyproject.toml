@@ -11,5 +11,25 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "poethepoet>=0.42.1",
     "pytest>=9.0.2",
+    "ruff>=0.15.6",
 ]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+indent-width = 4
+
+[tool.ruff.lint]
+# "E" (Error), "F" (Pyflakes), "I" (Isort) sont les bases
+select = ["E", "F", "I", "W"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.poe.tasks]
+lint = "ruff check ."
+format = "ruff format ."
+fix = "ruff check . --fix"
