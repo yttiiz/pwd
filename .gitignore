@@ -6,6 +6,9 @@ dist/
 wheels/
 *.egg-info
 
+# Origins allowed
+origins.json
+
 # Variables environment
 .env
 
