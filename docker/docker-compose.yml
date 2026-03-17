@@ -1,0 +1,15 @@
+services:
+  app:
+    env_file: .env
+    image: pwd-image
+    container_name: pwd
+    build:
+      context: ${APP_PATH}
+      dockerfile: ${APP_PATH}/docker/Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - ${APP_PATH}:/app
+      - ${PWD_DATABASE_PATH}:${PWD_DATABASE_PATH}
+    network_mode: host
+    command: uv run uvicorn main:app
