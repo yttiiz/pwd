@@ -3,7 +3,7 @@ from fastapi.exceptions import HTTPException
 from src.config import settings
 from src.utils.resources import get_database
 
-router = APIRouter(prefix="/database", tags=["documents"])
+router = APIRouter(prefix="/database", tags=["database"])
 
 
 @router.get("/")
