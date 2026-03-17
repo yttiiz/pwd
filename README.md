@@ -23,6 +23,10 @@
 pwd/
 ├── .venv/                  # Virtual environment (managed by uv)
 ├── .zed/                   # Zed editor configuration
+├── docker/
+│   ├── Dockerfile          # Docker image definition
+│   ├── Makefile            # Docker shortcuts (up, rmi, sh)
+│   └── docker-compose.yml  # Service configuration
 ├── src/
 │   ├── routes/
 │   │   └── documents.py    # GET /database/ endpoint
@@ -51,7 +55,11 @@ Create a `.env` file at the root of the project with the following variables:
 PWD_DATABASE_PATH=       # Absolute path to the .kdbx database file
 API_KEY=                 # Secret key required to access the API
 ORIGINS_PATH=            # Absolute path to the origins.json file
+APP_PATH=                # Absolute path to the project root (used by Docker)
+PORT=                    # Port exposed by the container (used by Docker)
 ```
+
+> `APP_PATH` and `PORT` are only required when running the application with Docker.
 
 ---
 
@@ -85,9 +93,33 @@ uv sync
 
 ## Run the application
 
+### Locally
+
 ```bash
 uv run uvicorn main:app --reload
 ```
+
+### With Docker
+
+Commands are available via the `Makefile` inside the `docker/` directory.
+
+```bash
+cd docker
+```
+
+| Command    | Description                                                          |
+| ---------- | -------------------------------------------------------------------- |
+| `make up`  | Build the image (if needed) and start the container in detached mode |
+| `make rmi` | Stop the container and remove the local image                        |
+| `make sh`  | Open an interactive shell inside the running container               |
+
+**Example — start the container**
+
+```bash
+make up
+```
+
+> The first run uses `COMPOSE_BAKE=true` to build the image via Docker's Bake feature. The container is named `pwd` and the project is scoped under the `database-pwd` Compose project.
 
 ---
 
