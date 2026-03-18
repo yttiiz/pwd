@@ -9,7 +9,8 @@ services:
     ports:
       - ${PORT}:${PORT}
     volumes:
-      - ${APP_PATH}:/app
+      - ${APP_PATH}/src:/app/src
+      - ${APP_PATH}/main.py:/app/main.py
       - ${PWD_DATABASE_PATH}:${PWD_DATABASE_PATH}
     network_mode: host
     command: uv run uvicorn main:app
