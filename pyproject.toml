@@ -34,3 +34,16 @@ quote-style = "double"
 lint = "ruff check ."
 format = "ruff format ."
 fix = "ruff check . --fix"
+up = ["docker-start", "make-up"]
+rmi = ["make-rmi"]
+
+[tool.poe.tasks.docker-start]
+cmd = "docker desktop start"
+
+[tool.poe.tasks.make-up]
+cmd = "make up"
+cwd = "docker"
+
+[tool.poe.tasks.make-rmi]
+cmd = "make rmi"
+cwd = "docker"
