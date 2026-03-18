@@ -1,7 +1,9 @@
+import os
+
 from fastapi.exceptions import HTTPException
 from fastapi.responses import FileResponse
+
 from src.config import settings
-import os
 
 
 def get_database():

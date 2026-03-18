@@ -1,6 +1,7 @@
-from src.config import settings
-from typing import TypedDict, cast
 import json
+from typing import TypedDict, cast
+
+from src.config import settings
 
 
 class Origins(TypedDict):
