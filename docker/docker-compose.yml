@@ -4,8 +4,8 @@ services:
     image: pwd-image
     container_name: pwd
     build:
-      context: ${APP_PATH}
-      dockerfile: ${APP_PATH}/docker/Dockerfile
+      context: ..
+      dockerfile: ./docker/Dockerfile
     ports:
       - ${PORT}:${PORT}
     volumes:
@@ -13,4 +13,4 @@ services:
       - ${APP_PATH}/main.py:/app/main.py
       - ${PWD_DATABASE_PATH}:${PWD_DATABASE_PATH}
     network_mode: host
-    command: uv run uvicorn main:app
+    command: uv run python main.py
