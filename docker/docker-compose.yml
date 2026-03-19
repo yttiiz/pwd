@@ -13,5 +13,6 @@ services:
       - ${APP_PATH}/src:/app/src
       - ${APP_PATH}/main.py:/app/main.py
       - ${PWD_DATABASE_PATH}:${PWD_DATABASE_PATH}
+      - ${ORIGINS_PATH}:${ORIGINS_PATH}
     network_mode: host
     command: uv run python main.py
