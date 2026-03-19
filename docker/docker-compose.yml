@@ -1,11 +1,12 @@
 services:
   app:
-    env_file: .env
+    env_file: ../.env
     image: pwd-image
     container_name: pwd
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
+    pull_policy: build
     ports:
       - ${PORT}:${PORT}
     volumes:
