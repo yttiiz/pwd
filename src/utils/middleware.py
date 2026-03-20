@@ -8,10 +8,11 @@ class Origins(TypedDict):
     origins: list[str]
 
 
-def get_origins():
+def get_origins() -> list[str]:
     """Retreive a list of 'origin' allowed to communicate with this API"""
-
-    with open(settings.origins_path, "r") as file:
-        content = cast(Origins, json.load(file))
-
-    return content.get("origins", [])
+    try:
+        with open(settings.origins_path, "r") as file:
+            content = cast(Origins, json.load(file))
+        return content.get("origins", [])
+    except FileNotFoundError:
+        return []

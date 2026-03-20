@@ -38,7 +38,8 @@ pwd/
 │   └── config.py           # Settings (loaded from .env)
 ├── tests/
 │   ├── conftest.py         # Shared fixtures (TestClient, valid_api_key)
-│   └── test_database.py    # Tests for GET /database/
+│   ├── test_database.py    # Tests for GET /database/
+│   └── test_middleware.py  # Tests for get_origins()
 ├── .env                    # Environment variables (not committed)
 ├── .gitignore
 ├── .python-version         # Python version in use (3.13)
@@ -191,8 +192,9 @@ uv run pytest -v
 
 ```
 tests/
-├── conftest.py       # Shared fixtures
-└── test_database.py  # Tests for GET /database/
+├── conftest.py        # Shared fixtures
+├── test_database.py   # Tests for GET /database/
+└── test_middleware.py # Tests for get_origins()
 ```
 
 ### Fixtures (`conftest.py`)
@@ -201,6 +203,16 @@ tests/
 | --------------- | ------------ | ----------------------------------------------- |
 | `client`        | `TestClient` | FastAPI test client wrapping the app            |
 | `valid_api_key` | `str`        | Fake API key used to simulate authorized access |
+
+### Test cases (`test_middleware.py`)
+
+| Test                                               | Scenario                                    | Expected                    |
+| -------------------------------------------------- | ------------------------------------------- | --------------------------- |
+| `test_valid_file_returns_origins`                  | File exists with a valid `"origins"` key    | Returns the list of origins |
+| `test_file_without_origins_key_returns_empty_list` | File exists but without the `"origins"` key | `[]`                        |
+| `test_missing_file_returns_empty_list`             | File does not exist                         | `[]`                        |
+
+> If the origins file is missing, `get_origins()` catches the `FileNotFoundError` and returns an empty list, preventing the application from crashing on startup.
 
 ### Test cases (`test_database.py`)
 
