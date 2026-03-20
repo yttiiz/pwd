@@ -29,13 +29,16 @@ pwd/
 │   └── docker-compose.yml  # Service configuration
 ├── src/
 │   ├── routes/
-│   │   └── documents.py    # GET /database/ endpoint
+│   │   └── database.py     # GET /database/ endpoint
 │   ├── utils/
 │   │   ├── middleware.py   # CORS origins loader
 │   │   ├── origins.json    # Allowed origins list
 │   │   └── resources.py    # Database path resolver
 │   ├── __init__.py
 │   └── config.py           # Settings (loaded from .env)
+├── tests/
+│   ├── conftest.py         # Shared fixtures (TestClient, valid_api_key)
+│   └── test_database.py    # Tests for GET /database/
 ├── .env                    # Environment variables (not committed)
 ├── .gitignore
 ├── .python-version         # Python version in use (3.13)
@@ -172,9 +175,43 @@ uv run poe fix
 
 ## Tests
 
+### Run the tests
+
 ```bash
 uv run pytest
 ```
+
+For a more detailed output :
+
+```bash
+uv run pytest -v
+```
+
+### Structure
+
+```
+tests/
+├── conftest.py       # Shared fixtures
+└── test_database.py  # Tests for GET /database/
+```
+
+### Fixtures (`conftest.py`)
+
+| Fixture         | Type         | Description                                     |
+| --------------- | ------------ | ----------------------------------------------- |
+| `client`        | `TestClient` | FastAPI test client wrapping the app            |
+| `valid_api_key` | `str`        | Fake API key used to simulate authorized access |
+
+### Test cases (`test_database.py`)
+
+| Test                                               | Scenario                 | Expected            |
+| -------------------------------------------------- | ------------------------ | ------------------- |
+| `test_no_api_key_returns_403`                      | No `api_key` query param | `403`               |
+| `test_wrong_api_key_returns_403`                   | Invalid `api_key`        | `403`               |
+| `test_valid_api_key_but_missing_file_returns_404`  | Valid key, file absent   | `404`               |
+| `test_valid_api_key_and_existing_file_returns_200` | Valid key, file present  | `200` + binary file |
+
+> Tests use `monkeypatch` to override `settings` values at runtime and `tmp_path` to create a temporary `.kdbx` file — no `.env` file or real database needed.
 
 ---
 
