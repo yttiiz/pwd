@@ -1,3 +1,6 @@
+[![release](https://img.shields.io/github/actions/workflow/status/yttiiz/pwd/ci-cd.yml?label=ci/cd)](https://github.com/yttiiz/pwd/actions/workflows/ci-cd.yml)
+[![release](https://img.shields.io/github/v/release/yttiiz/pwd?color=blue)](https://github.com/yttiiz/pwd/releases)
+
 # pwd
 
 > API designed to retrieve (`GET`) documents from a VPS.
@@ -105,7 +108,20 @@ uv run uvicorn main:app --reload
 
 ### With Docker
 
-Commands are available via the `Makefile` inside the `docker/` directory.
+1. You can use the `toe` commands
+
+| Command          | Description                                                          |
+| ---------------- | -------------------------------------------------------------------- |
+| `uv run toe up`  | Build the image (if needed) and start the container in detached mode |
+| `uv run toe rmi` | Stop the container and remove the local image                        |
+
+**Example — start the container**
+
+```bash
+uv run toe up
+```
+
+2. You can move to the `docker/` directory. Commands are available via the `Makefile`.
 
 ```bash
 cd docker
