@@ -1,6 +1,7 @@
 import json
-import pytest
 from pathlib import Path
+
+import pytest
 
 from src.config import settings
 from src.utils.middleware import get_origins
@@ -12,9 +13,12 @@ class TestGetOrigins:
         monkeypatch: pytest.MonkeyPatch,
         tmp_path: Path,
     ):
-        """Should return the list of origins when the file exists and contains valid content."""
+        """
+        Should return the list of origins when the file exists
+        and contains valid content.
+        """
         origins_file = tmp_path / "origins.json"
-        origins_file.write_text(
+        _ = origins_file.write_text(
             json.dumps({"origins": ["http://localhost:3000", "https://example.com"]})
         )
 
@@ -29,9 +33,12 @@ class TestGetOrigins:
         monkeypatch: pytest.MonkeyPatch,
         tmp_path: Path,
     ):
-        """Should return an empty list when the file exists but does not contain the 'origins' key."""
+        """
+        Should return an empty list when the file exists
+        but does not contain the `origins` key.
+        """
         origins_file = tmp_path / "origins.json"
-        origins_file.write_text(json.dumps({"other_key": "value"}))
+        _ = origins_file.write_text(json.dumps({"other_key": "value"}))
 
         monkeypatch.setattr(settings, "origins_path", str(origins_file))
 

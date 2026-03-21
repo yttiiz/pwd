@@ -1,6 +1,7 @@
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
-from pathlib import Path
 
 from src.config import settings
 
@@ -35,7 +36,10 @@ class TestDatabaseRoute:
         valid_api_key: str,
         monkeypatch: pytest.MonkeyPatch,
     ):
-        """Should return 404 when the api_key is valid but the database file does not exist."""
+        """
+        Should return 404 when the api_key is valid
+        but the database file does not exist.
+        """
         monkeypatch.setattr(settings, "api_key", valid_api_key)
         monkeypatch.setattr(
             settings, "pwd_database_path", "/nonexistent/path/database.kdbx"
@@ -53,7 +57,10 @@ class TestDatabaseRoute:
         monkeypatch: pytest.MonkeyPatch,
         tmp_path: Path,
     ):
-        """Should return 200 with the file when the api_key is valid and the database file exists."""
+        """
+        Should return 200 with the file when the api_key is valid
+        and the database file exists.
+        """
         db_file = tmp_path / "database.kdbx"
         _ = db_file.write_bytes(b"fake database content")
 
