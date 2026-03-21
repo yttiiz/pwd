@@ -108,17 +108,17 @@ uv run uvicorn main:app --reload
 
 ### With Docker
 
-1. You can use the `toe` commands
+1. You can use the `poe` commands
 
 | Command          | Description                                                          |
 | ---------------- | -------------------------------------------------------------------- |
-| `uv run toe up`  | Build the image (if needed) and start the container in detached mode |
-| `uv run toe rmi` | Stop the container and remove the local image                        |
+| `uv run poe up`  | Build the image (if needed) and start the container in detached mode |
+| `uv run poe rmi` | Stop the container and remove the local image                        |
 
 **Example — start the container**
 
 ```bash
-uv run toe up
+uv run poe up
 ```
 
 2. You can move to the `docker/` directory. Commands are available via the `Makefile`.
