@@ -26,7 +26,7 @@ jobs:
         run: uv sync --frozen
 
       - name: Verify lint & formatting
-        run: uv run toe lint
+        run: uv run poe lint
 
       - name: Run tests
         run: uv run pytest
